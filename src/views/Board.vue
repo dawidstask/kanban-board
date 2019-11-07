@@ -1,13 +1,13 @@
 <template>
   <div class="columns">
     <div class="column">
-      <Column title="Todo"></Column>
+      <Column title="Todo" taskStatus="todo" />
     </div>
     <div class="column">
-      <Column title="In progress"></Column>
+      <Column title="In progress" taskStatus="pending" />
     </div>
     <div class="column">
-      <Column title="Done"></Column>
+      <Column title="Done" taskStatus="done" />
     </div>
   </div>
 </template>
