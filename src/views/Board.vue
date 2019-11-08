@@ -28,13 +28,8 @@ export default {
     display flex
     flex-wrap wrap
     align-items center
+    background-color #cdc5e6
   .board__column
     flex 1
     height 90vh
-  .board__column--todo
-    background-color red
-  .board__column--pending
-    background-color grey
-  .board__column--done
-    background-color yellow
 </style>

@@ -1,22 +1,24 @@
 <template>
-  <div>
+  <div class="board__column--helper">
     <span>{{ title }}</span>
-    <draggable v-model="tasks" :options="{ group: 'main' }">
-      <p v-for="task in tasks" :key="task.id">
-        {{ task }}
-      </p>
+    <draggable class="board__column--helper" v-model="tasks" :options="{ group: 'main' }">
+      <div v-for="task in tasks" :key="task.id">
+        <Task :data="task" />
+      </div>
     </draggable>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
+import Task from '@/components/Task.vue';
 
 export default {
   name: 'Column',
   props: ['title', 'taskStatus'],
   components: {
     draggable,
+    Task,
   },
   computed: {
     tasks: {
@@ -35,6 +37,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  div
-    height 87vh
+  .board__column--helper
+    height 100%
 </style>
