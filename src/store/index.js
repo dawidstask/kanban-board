@@ -5,25 +5,34 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    tasks: [
-      {
+    tasks: {
+      todo: [{
+        id: 1,
         description: 'task1',
         type: 'feature',
-        status: 'todo',
       },
       {
+        id: 2,
         description: 'task2',
         type: 'bugfix',
-        status: 'pending',
-      },
-      {
+      }],
+      pending: [{
+        id: 3,
         description: 'task3',
         type: 'default',
-        status: 'done',
-      },
-    ],
+      }],
+      done: [{
+        id: 4,
+        description: 'task4',
+        type: 'default',
+      }],
+    },
+    lastId: 4,
   },
   mutations: {
+    updateTasks(state, { tasks, status }) {
+      state.tasks[status] = tasks;
+    },
   },
   actions: {
   },

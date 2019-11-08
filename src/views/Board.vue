@@ -1,12 +1,12 @@
 <template>
-  <div class="columns">
-    <div class="column">
+  <div class="board">
+    <div class="board__column board__column--todo">
       <Column title="Todo" taskStatus="todo" />
     </div>
-    <div class="column">
+    <div class="board__column board__column--pending">
       <Column title="In progress" taskStatus="pending" />
     </div>
-    <div class="column">
+    <div class="board__column board__column--done">
       <Column title="Done" taskStatus="done" />
     </div>
   </div>
@@ -24,10 +24,17 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .columns
+  .board
     display flex
     flex-wrap wrap
     align-items center
-    .column
-      flex 1
+  .board__column
+    flex 1
+    height 90vh
+  .board__column--todo
+    background-color red
+  .board__column--pending
+    background-color grey
+  .board__column--done
+    background-color yellow
 </style>

@@ -1,22 +1,40 @@
 <template>
   <div>
     <span>{{ title }}</span>
-    <p>{{ tasks }}</p>
+    <draggable v-model="tasks" :options="{ group: 'main' }">
+      <p v-for="task in tasks" :key="task.id">
+        {{ task }}
+      </p>
+    </draggable>
   </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable';
+
 export default {
   name: 'Column',
   props: ['title', 'taskStatus'],
+  components: {
+    draggable,
+  },
   computed: {
-    tasks() {
-      return this.$store.state.tasks.filter(task => task.status === this.taskStatus);
+    tasks: {
+      get() {
+        return this.$store.state.tasks[this.taskStatus];
+      },
+      set(tasks) {
+        this.$store.commit('updateTasks', {
+          tasks,
+          status: this.taskStatus,
+        });
+      },
     },
   },
 };
 </script>
 
-<style scoped>
-
+<style lang="stylus" scoped>
+  div
+    height 87vh
 </style>
