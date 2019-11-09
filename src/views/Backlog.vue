@@ -1,7 +1,8 @@
 <template>
   <div>
-    <span>backlog</span>
-    <p>{{ tasks }}</p>
+    <p v-for="task in tasks" :key="task.id">
+      <span>{{ task }}</span>
+    </p>
   </div>
 </template>
 

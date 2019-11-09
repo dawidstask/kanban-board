@@ -8,28 +8,32 @@ export default new Vuex.Store({
     tasks: {
       todo: [{
         id: 1,
-        description: 'task1',
+        description: 'Nulla porttitor accumsan tincidunt. Donec rutrum congue leo eget malesuada.',
         type: 'feature',
       },
       {
         id: 2,
-        description: 'task2',
+        description: 'Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.',
         type: 'bugfix',
       }],
       pending: [{
         id: 3,
-        description: 'task3',
+        description: 'Curabitur non nulla sit amet nisl tempus convallis quis ac lectus',
         type: 'default',
       }],
       done: [{
         id: 4,
-        description: 'task4',
+        description: 'Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.',
         type: 'default',
       }],
     },
     lastId: 4,
   },
   mutations: {
+    addTask(state, task) {
+      state.lastId += 1;
+      state.tasks.todo.push({ id: state.lastId, ...task });
+    },
     updateTasks(state, { tasks, status }) {
       state.tasks[status] = tasks;
     },

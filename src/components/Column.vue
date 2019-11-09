@@ -1,7 +1,7 @@
 <template>
   <div class="board__column--helper">
-    <span>{{ title }}</span>
-    <draggable class="board__column--helper" v-model="tasks" :options="{ group: 'main' }">
+    <h3>{{ title }}</h3>
+    <draggable class="board__column--draggable" v-model="tasks" group="main">
       <div v-for="task in tasks" :key="task.id">
         <Task :data="task" />
       </div>
@@ -38,5 +38,8 @@ export default {
 
 <style lang="stylus" scoped>
   .board__column--helper
-    height 100%
+    max-height 72vh
+  .board__column--draggable
+    max-height 65vh
+    overflow auto
 </style>

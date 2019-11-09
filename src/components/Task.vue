@@ -39,6 +39,7 @@ export default {
   .task--bugfix .task__header,
   .task--bugfix .task__type
     background-color #dc143c
+    color white
   .task--default .task__header,
   .task--default .task__type
     background-color #F5F5F5
