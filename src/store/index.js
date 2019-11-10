@@ -27,6 +27,7 @@ export default new Vuex.Store({
         type: 'default',
       }],
     },
+    taskTypes: ['feature', 'bugfix', 'default'],
     lastId: 4,
   },
   mutations: {
@@ -34,9 +35,17 @@ export default new Vuex.Store({
       state.lastId += 1;
       state.tasks.todo.push({ id: state.lastId, ...task });
     },
+    editTask(state, task) {
+      const found = state.tasks[task.status].find(item => item.id === task.id);
+      found.description = task.description;
+      found.type = task.type;
+    },
     updateTasks(state, { tasks, status }) {
       state.tasks[status] = tasks;
     },
+  },
+  getters: {
+    taskTypes: state => state.taskTypes,
   },
   actions: {
   },

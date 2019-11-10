@@ -8,7 +8,7 @@
     </button>
     <form
       v-if="isFormVisible"
-      @submit.prevent="addTask"
+      @submit.prevent="submit"
     >
       <div>
         <input
@@ -23,7 +23,7 @@
           required
         >
           <option
-            v-for="type in getTypes"
+            v-for="type in taskTypes"
             :value="type"
             :key="type"
           >
@@ -47,43 +47,41 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  name: 'AddTaskForm',
+  name: 'TaskForm',
+  props: {
+    id: Number,
+    description: String,
+    type: String,
+  },
   computed: {
-    getTypes() {
-      const { tasks } = this.$store.state;
-      const statuses = Object.keys(tasks);
-      const types = [];
-
-      statuses.forEach((status) => {
-        tasks[status].forEach((item) => {
-          if (types.includes(item.type)) {
-            return;
-          }
-
-          types.push(item.type);
-        });
-      });
-
-      return types;
-    },
+    ...mapGetters([
+      'taskTypes',
+    ]),
   },
   data() {
     return {
       isFormVisible: false,
       task: {
-        description: null,
-        type: null,
+        description: this.description,
+        type: this.type,
       },
     };
   },
   methods: {
-    addTask() {
+    submit() {
       if (!this.task.description || !this.task.type) {
         return;
       }
 
-      this.$store.commit('addTask', this.task);
+      if (this.id) {
+        this.$store.commit('editTask', { id: this.id, ...this.task, status: 'todo' });
+      } else {
+        this.$store.commit('addTask', this.task);
+      }
+
       this.clearForm();
       this.$nextTick(() => {
         this.$emit('task-added');

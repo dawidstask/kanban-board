@@ -1,18 +1,47 @@
 <template>
   <div class="task">
-    <div :class="`task--${data.type}`">
-      <span class="task__header">#{{ data.id }}</span>
-      <span class="task__description">{{ data.description }}</span>
-      <span class="task__type">{{ data.type }}</span>
+    <div
+      :class="`task--${data.type}`"
+      @mouseover="hover = true"
+      @mouseleave="hover = false"
+    >
+      <span class="task__header">
+        <span :class="{ 'task__header-id': hover }">#{{ data.id }}</span>
+        <span v-if="hover" class="task__header-edit" @click="editMode = true">edit</span>
+      </span>
+      <template v-if="editMode">
+        <TaskForm :id="data.id" :description="data.description" :type="data.type" />
+      </template>
+      <template v-else>
+        <span class="task__description">{{ data.description }}</span>
+        <span class="task__type">{{ data.type }}</span>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import TaskForm from '@/components/TaskForm.vue';
+
 export default {
   name: 'Task',
   props: {
     data: Object,
+  },
+  components: {
+    TaskForm,
+  },
+  computed: {
+    ...mapGetters([
+      'taskTypes',
+    ]),
+  },
+  data() {
+    return {
+      hover: false,
+      editMode: false,
+    };
   },
 };
 </script>
@@ -28,6 +57,11 @@ export default {
     border-radius .3em
   .task__header
     padding .3em
+  .task__header-id
+    margin-left 1.7em
+  .task__header-edit
+    float right
+    cursor pointer
   .task__description
     padding .7em
     text-align left
@@ -44,8 +78,9 @@ export default {
   .task--default .task__type
     background-color #F5F5F5
   .task__type
-    margin: .5em;
-    padding: .3em .7em;
-    border-radius: .3em;
-    font-size: .9em;
+    margin: 0.5em;
+    padding: 0.3em 0.7em;
+    border-radius: 1em;
+    font-size: 0.75em;
+    font-weight: 500;
 </style>

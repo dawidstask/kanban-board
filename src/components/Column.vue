@@ -8,13 +8,13 @@
         </div>
       </draggable>
     </div>
-    <AddTaskForm v-if="taskStatus === 'todo'" @task-added="scrollDown" />
+    <TaskForm v-if="taskStatus === 'todo'" @task-added="scrollDown" />
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
-import AddTaskForm from '@/components/AddTaskForm.vue';
+import TaskForm from '@/components/TaskForm.vue';
 import Task from '@/components/Task.vue';
 
 export default {
@@ -22,7 +22,7 @@ export default {
   props: ['title', 'taskStatus'],
   components: {
     draggable,
-    AddTaskForm,
+    TaskForm,
     Task,
   },
   computed: {
