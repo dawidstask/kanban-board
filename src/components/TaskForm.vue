@@ -47,8 +47,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'TaskForm',
   props: {
@@ -57,9 +55,9 @@ export default {
     type: String,
   },
   computed: {
-    ...mapGetters([
-      'taskTypes',
-    ]),
+    taskTypes() {
+      return this.$store.state.taskTypes;
+    },
   },
   data() {
     return {

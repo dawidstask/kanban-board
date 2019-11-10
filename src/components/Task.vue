@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import TaskForm from '@/components/TaskForm.vue';
 
 export default {
@@ -33,9 +32,9 @@ export default {
     TaskForm,
   },
   computed: {
-    ...mapGetters([
-      'taskTypes',
-    ]),
+    taskTypes() {
+      return this.$store.state.taskTypes;
+    },
   },
   data() {
     return {

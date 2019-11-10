@@ -44,9 +44,6 @@ export default new Vuex.Store({
       state.tasks[status] = tasks;
     },
   },
-  getters: {
-    taskTypes: state => state.taskTypes,
-  },
   actions: {
   },
   modules: {
