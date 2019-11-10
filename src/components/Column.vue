@@ -1,16 +1,20 @@
 <template>
-  <div class="board__column--helper">
-    <h3>{{ title }}</h3>
-    <draggable class="board__column--draggable" v-model="tasks" group="main">
-      <div v-for="task in tasks" :key="task.id">
-        <Task :data="task" />
-      </div>
-    </draggable>
+  <div>
+    <div class="board__column--helper">
+      <h3>{{ title }}</h3>
+      <draggable id="draggable" class="board__column--draggable" v-model="tasks" group="main">
+        <div v-for="task in tasks" :key="task.id">
+          <Task :data="task" />
+        </div>
+      </draggable>
+    </div>
+    <AddTaskForm v-if="taskStatus === 'todo'" @task-added="scrollDown" />
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
+import AddTaskForm from '@/components/AddTaskForm.vue';
 import Task from '@/components/Task.vue';
 
 export default {
@@ -18,6 +22,7 @@ export default {
   props: ['title', 'taskStatus'],
   components: {
     draggable,
+    AddTaskForm,
     Task,
   },
   computed: {
@@ -31,6 +36,12 @@ export default {
           status: this.taskStatus,
         });
       },
+    },
+  },
+  methods: {
+    scrollDown() {
+      const container = this.$el.querySelector('#draggable');
+      container.scrollTop = container.scrollHeight;
     },
   },
 };

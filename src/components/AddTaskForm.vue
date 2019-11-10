@@ -11,16 +11,13 @@
       @submit.prevent="addTask"
     >
       <div>
-        <label>Description: </label>
         <input
           type="text"
           v-model="task.description"
+          placeholder="Description..."
           autofocus
           required
         >
-      </div>
-      <div>
-        <label>Type: </label>
         <select
           v-model="task.type"
           required
@@ -88,6 +85,9 @@ export default {
 
       this.$store.commit('addTask', this.task);
       this.clearForm();
+      this.$nextTick(() => {
+        this.$emit('task-added');
+      });
     },
     clearForm() {
       this.task.description = null;
