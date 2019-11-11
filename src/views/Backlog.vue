@@ -1,8 +1,11 @@
 <template>
   <div>
-    <p v-for="task in tasks" :key="task.id">
-      <span>{{ task }}</span>
-    </p>
+    <div v-for="(issues, status) in tasks" :key="status">
+      <h3>{{ status }}</h3>
+      <div v-for="issue in issues" :key="issue.id">
+        <p>#{{ issue.id }} {{ issue.description }} ({{ issue.type }})</p>
+      </div>
+    </div>
   </div>
 </template>
 
