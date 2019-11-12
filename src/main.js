@@ -5,8 +5,16 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
+store.subscribe((mutation, state) => {
+  localStorage.setItem('state', JSON.stringify(state));
+});
+
+
 new Vue({
   router,
   store,
+  beforeCreate() {
+    this.$store.commit('initialiseStore');
+  },
   render: h => h(App),
 }).$mount('#app');

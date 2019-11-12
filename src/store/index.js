@@ -43,6 +43,13 @@ export default new Vuex.Store({
     updateTasks(state, { tasks, status }) {
       state.tasks[status] = tasks;
     },
+    initialiseStore(state) {
+      if (localStorage.getItem('state')) {
+        this.replaceState(
+          Object.assign(state, JSON.parse(localStorage.getItem('state'))),
+        );
+      }
+    },
   },
   actions: {
   },
