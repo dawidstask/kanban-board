@@ -6,8 +6,28 @@
       @mouseleave="hover = false"
     >
       <span class="task__header">
-        <span :class="{ 'task__header-id': hover }">#{{ data.id }}</span>
-        <span v-if="hover" class="task__header-edit" @click="editMode = true">edit</span>
+        <span
+          :class="{
+            'task__header-id': hover,
+            'task__header-id--done' : hover && taskStatus === 'done'
+          }"
+        >
+          #{{ data.id }}
+        </span>
+        <span
+          v-if="hover"
+          class="task__header-edit"
+          @click="editMode = true"
+        >
+          edit
+        </span>
+        <span
+          v-if="hover && taskStatus === 'done'"
+          class="task__header-delete"
+          @click="deleteTask"
+        >
+          delete
+        </span>
       </span>
       <template v-if="editMode">
         <TaskForm
@@ -32,6 +52,7 @@ export default {
   name: 'Task',
   props: {
     data: Object,
+    taskStatus: String,
   },
   components: {
     TaskForm,
@@ -51,6 +72,13 @@ export default {
     closeForm() {
       this.editMode = false;
     },
+    deleteTask() {
+      const shouldDelete = window.confirm(`Do you want to delete task #${this.data.id}?`);
+
+      if (shouldDelete) {
+        this.$store.commit('removeTask', { ...this.data, status: 'done' });
+      }
+    },
   },
 };
 </script>
@@ -68,9 +96,15 @@ export default {
     padding .3em
   .task__header-id
     margin-left 1.6em
+  .task__header-id--done
+    margin-left 5.35em
   .task__header-edit
     float right
     cursor pointer
+  .task__header-delete
+    float right
+    cursor pointer
+    margin-right 1em
   .task__description
     padding .7em
     text-align left

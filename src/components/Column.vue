@@ -4,7 +4,7 @@
       <h3>{{ title }}</h3>
       <draggable id="draggable" class="board__column--draggable" v-model="tasks" group="main">
         <div v-for="task in tasks" :key="task.id">
-          <Task :data="task" />
+          <Task :data="task" :task-status="taskStatus" />
         </div>
       </draggable>
       <button v-if="taskStatus === 'todo' && addMode === false" @click="addMode = true">

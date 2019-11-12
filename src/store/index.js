@@ -40,6 +40,10 @@ export default new Vuex.Store({
       found.description = task.description;
       found.type = task.type;
     },
+    removeTask(state, task) {
+      const found = state.tasks[task.status].find(item => item.id === task.id);
+      state.tasks[task.status].splice(found, 1);
+    },
     updateTasks(state, { tasks, status }) {
       state.tasks[status] = tasks;
     },
