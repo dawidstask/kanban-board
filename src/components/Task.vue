@@ -57,7 +57,7 @@ export default {
   .task__header
     padding .3em
   .task__header-id
-    margin-left 1.7em
+    margin-left 1.6em
   .task__header-edit
     float right
     cursor pointer
