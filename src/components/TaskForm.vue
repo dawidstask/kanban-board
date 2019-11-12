@@ -1,11 +1,5 @@
 <template>
   <div class="add-task">
-    <button
-      @click="isFormVisible = !isFormVisible"
-      v-if="!isFormVisible"
-    >
-      Add new task
-    </button>
     <form
       v-if="isFormVisible"
       @submit.prevent="submit"
@@ -61,7 +55,7 @@ export default {
   },
   data() {
     return {
-      isFormVisible: false,
+      isFormVisible: true,
       task: {
         description: this.description,
         type: this.type,
@@ -80,15 +74,18 @@ export default {
         this.$store.commit('addTask', this.task);
       }
 
-      this.clearForm();
       this.$nextTick(() => {
         this.$emit('task-added');
+      });
+      this.$nextTick(() => {
+        this.clearForm();
       });
     },
     clearForm() {
       this.task.description = null;
       this.task.type = null;
       this.isFormVisible = false;
+      this.$emit('form-closed');
     },
   },
 };

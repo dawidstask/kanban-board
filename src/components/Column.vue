@@ -7,8 +7,13 @@
           <Task :data="task" />
         </div>
       </draggable>
+      <button v-if="taskStatus === 'todo' && addMode === false" @click="addMode = true">
+        Add task
+      </button>
     </div>
-    <TaskForm v-if="taskStatus === 'todo'" @task-added="scrollDown" />
+    <template v-if="addMode">
+      <TaskForm v-if="taskStatus === 'todo'" @task-added="scrollDown" @form-closed="closeForm"/>
+    </template>
   </div>
 </template>
 
@@ -38,10 +43,19 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      addMode: false,
+    };
+  },
   methods: {
     scrollDown() {
       const container = this.$el.querySelector('#draggable');
       container.scrollTop = container.scrollHeight;
+      this.closeForm();
+    },
+    closeForm() {
+      this.addMode = false;
     },
   },
 };

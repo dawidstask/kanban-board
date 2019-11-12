@@ -10,7 +10,12 @@
         <span v-if="hover" class="task__header-edit" @click="editMode = true">edit</span>
       </span>
       <template v-if="editMode">
-        <TaskForm :id="data.id" :description="data.description" :type="data.type" />
+        <TaskForm
+          :id="data.id"
+          :description="data.description"
+          :type="data.type"
+          @form-closed="closeForm"
+        />
       </template>
       <template v-else>
         <span class="task__description">{{ data.description }}</span>
@@ -41,6 +46,11 @@ export default {
       hover: false,
       editMode: false,
     };
+  },
+  methods: {
+    closeForm() {
+      this.editMode = false;
+    },
   },
 };
 </script>
