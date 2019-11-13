@@ -42,7 +42,8 @@ export default new Vuex.Store({
     },
     removeTask(state, task) {
       const found = state.tasks[task.status].find(item => item.id === task.id);
-      state.tasks[task.status].splice(found, 1);
+      const indexOfFound = state.tasks[task.status].indexOf(found);
+      state.tasks[task.status].splice(indexOfFound, 1);
     },
     updateTasks(state, { tasks, status }) {
       state.tasks[status] = tasks;
