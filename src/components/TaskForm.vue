@@ -47,6 +47,7 @@ export default {
     id: Number,
     description: String,
     type: String,
+    taskStatus: String,
   },
   computed: {
     taskTypes() {
@@ -69,7 +70,7 @@ export default {
       }
 
       if (this.id) {
-        this.$store.commit('editTask', { id: this.id, ...this.task, status: 'todo' });
+        this.$store.commit('editTask', { id: this.id, ...this.task, status: this.taskStatus });
       } else {
         this.$store.commit('addTask', this.task);
       }

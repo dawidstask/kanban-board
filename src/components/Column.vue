@@ -2,17 +2,30 @@
   <div>
     <div class="board__column--helper">
       <h3>{{ title }}</h3>
-      <draggable id="draggable" class="board__column--draggable" v-model="tasks" group="main">
+      <draggable
+        id="draggable"
+        class="board__column--draggable"
+        v-model="tasks"
+        group="main"
+        :disabled="editFocused"
+      >
         <div v-for="task in tasks" :key="task.id">
           <Task :data="task" :task-status="taskStatus" />
         </div>
       </draggable>
-      <button v-if="taskStatus === 'todo' && addMode === false" @click="addMode = true">
+      <button
+        v-if="taskStatus === 'todo' && addMode === false"
+        @click="addMode = true"
+      >
         Add task
       </button>
     </div>
     <template v-if="addMode">
-      <TaskForm v-if="taskStatus === 'todo'" @task-added="scrollDown" @form-closed="closeForm"/>
+      <TaskForm
+        v-if="taskStatus === 'todo'"
+        @task-added="scrollDown"
+        @form-closed="closeForm"
+      />
     </template>
   </div>
 </template>
@@ -46,6 +59,7 @@ export default {
   data() {
     return {
       addMode: false,
+      editFocused: false,
     };
   },
   methods: {
@@ -66,5 +80,6 @@ export default {
     max-height 72vh
   .board__column--draggable
     max-height 65vh
+    min-height 20vh
     overflow auto
 </style>

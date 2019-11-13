@@ -34,6 +34,7 @@
           :id="data.id"
           :description="data.description"
           :type="data.type"
+          :taskStatus="taskStatus"
           @form-closed="closeForm"
         />
       </template>

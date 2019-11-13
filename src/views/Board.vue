@@ -29,6 +29,8 @@ export default {
     flex-wrap wrap
     align-items center
     background-color #cdc5e6
+    max-width 1300px
+    margin 0 auto
   .board__column
     flex 1
     height 86vh
